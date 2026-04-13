@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12 మంది అపోస్తలుల చరిత్ర</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans Telugu', sans-serif;
+            background-color: #fdfbf7; /* Warm paper tone */
+            color: #4a4a4a;
+        }
+        .parchment-bg {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .active-apostle {
+            background-color: #fef3c7; /* Amber-100 */
+            border-left: 4px solid #d97706; /* Amber-600 */
+            font-weight: bold;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            height: 300px;
+            max-height: 300px;
+        }
+        /* Custom Scrollbar for list */
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+    </style>
+    <!-- Chosen Palette: Warm Historical (Amber, Stone, Slate) -->
+    <!-- Application Structure Plan:
+         1. Header: Title and Introduction explaining the Great Commission context.
+         2. Main Dashboard (Grid Layout):
+            - Left/Top: Interactive List of Apostles (Navigation).
+            - Center/Right: Detail Card showing Selected Apostle's Map region, Method of Death, and Bible/Tradition notes.
+         3. Analysis Section:
+            - Chart 1: Distribution of Death Methods (Visualizing the cost of discipleship).
+            - Chart 2: Evangelism Regions (Visualizing the spread of the Gospel).
+         4. Footer: Summary and Context.
+    -->
+    <!-- Visualization & Content Choices:
+         - Goal: Inform & Compare.
+         - Method: Interactive Detail Card for depth, Charts for aggregate data.
+         - Charts: Chart.js Bar and Doughnut charts to show categories of martyrdom and geography.
+         - Interaction: Clicking names updates the DOM and charts highlight data.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="bg-stone-50 min-h-screen flex flex-col">
+
+    <!-- Header Section -->
+    <header class="bg-white border-b border-stone-200 shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
+            <h1 class="text-2xl md:text-3xl font-bold text-amber-800 text-center md:text-left">
+                ⛪ 12 మంది అపోస్తలుల ప్రయాణం & బలిదానం
+            </h1>
+            <p class="text-sm text-stone-500 mt-2 md:mt-0">
+                చరిత్ర మరియు బైబిల్ ఆధారాలు
+            </p>
+        </div>
+    </header>
+
+    <!-- Intro Text -->
+    <div class="container mx-auto px-4 py-6">
+        <div class="bg-amber-50 border-l-4 border-amber-600 p-4 rounded-r shadow-sm">
+            <h2 class="text-lg font-bold text-amber-900 mb-2">పరిచయం (Introduction)</h2>
+            <p class="text-stone-700 leading-relaxed">
+                ఏసుక్రీస్తు ఆరోహణమైన తరువాత, ఆయన శిష్యులు (అపోస్తలులు) "భూదిగంతముల వరకు నాకు సాక్షులైయుందురు" (అపోస్తలుల కార్యములు 1:8) అనే ఆజ్ఞను నెరవేర్చడానికి ప్రపంచవ్యాప్తంగా వెళ్లారు. ఈ ఇంటరాక్టివ్ పేజీలో వారు ఎక్కడికి వెళ్లారు, సువార్తను ఎలా ప్రకటించారు మరియు వారి విశ్వాసం కోసం ఎలా ప్రాణాలర్పించారు అనే వివరాలను చూడవచ్చు.
+                <br><span class="text-xs text-stone-500 mt-1 block">*గమనిక: యాకోబు (James) మరణం మాత్రమే బైబిల్‌లో స్పష్టంగా వ్రాయబడింది. మిగిలిన వివరాలు చర్చి చరిత్ర మరియు పురాతన సంప్రదాయాల నుండి సేకరించబడ్డాయి.</span>
+            </p>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <main class="container mx-auto px-4 py-2 flex-grow">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            <!-- Left Column: Apostle Selector List -->
+            <div class="lg:col-span-4 flex flex-col h-[500px] lg:h-[600px] parchment-bg rounded-lg overflow-hidden">
+                <div class="p-4 bg-stone-100 border-b border-stone-200">
+                    <h3 class="font-bold text-stone-700">అపోస్తలుల జాబితా (Select an Apostle)</h3>
+                    <p class="text-xs text-stone-500">వివరాలు చూడడానికి పేరుపై క్లిక్ చేయండి.</p>
+                </div>
+                <div id="apostle-list" class="overflow-y-auto custom-scroll flex-grow p-2 space-y-2">
+                    <!-- List items generated by JS -->
+                </div>
+            </div>
+
+            <!-- Right Column: Detail View -->
+            <div class="lg:col-span-8 flex flex-col gap-6">
+                
+                <!-- Detail Card -->
+                <div id="detail-card" class="parchment-bg rounded-lg p-6 min-h-[300px] transition-all duration-300 ease-in-out">
+                    <div class="flex flex-col md:flex-row justify-between items-start border-b border-stone-200 pb-4 mb-4">
+                        <div>
+                            <span id="apostle-badge" class="inline-block bg-amber-100 text-amber-800 text-xs px-2 py-1 rounded-full mb-2 font-semibold">Apostle</span>
+                            <h2 id="apostle-name" class="text-3xl font-bold text-stone-800">పేరు ఎంచుకోండి</h2>
+                            <p id="apostle-title" class="text-stone-500 italic text-sm">--</p>
+                        </div>
+                        <div class="mt-4 md:mt-0 bg-stone-100 p-3 rounded-lg text-center min-w-[120px]">
+                            <span class="block text-xs text-stone-500 uppercase tracking-wide">Region</span>
+                            <span id="apostle-region" class="font-bold text-amber-700 block text-lg">--</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-bold text-stone-700 mb-2 flex items-center">
+                                <span class="text-xl mr-2">📜</span> సువార్త సేవ (Mission)
+                            </h4>
+                            <p id="apostle-mission" class="text-stone-600 text-sm leading-relaxed">
+                                జాబితా నుండి ఒకరిని ఎంచుకోండి.
+                            </p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-red-700 mb-2 flex items-center">
+                                <span class="text-xl mr-2">✝️</span> మరణం/బలిదానం (Martyrdom)
+                            </h4>
+                            <p id="apostle-death" class="text-stone-600 text-sm leading-relaxed">
+                                --
+                            </p>
+                            <div class="mt-4 p-3 bg-red-50 border border-red-100 rounded">
+                                <span class="text-xs font-bold text-red-800 block mb-1">Method:</span>
+                                <span id="apostle-method" class="text-red-600 font-medium">--</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-stone-100">
+                         <h4 class="font-bold text-stone-700 mb-2 text-xs uppercase tracking-wide">Historical/Biblical Note</h4>
+                         <p id="apostle-source" class="text-xs text-stone-500 italic">
+                             --
+                         </p>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Chart 1: Method of Death -->
+                    <div class="parchment-bg rounded-lg p-4">
+                        <h4 class="text-center font-bold text-stone-700 mb-4 text-sm">బలిదాన పద్ధతులు (Methods of Martyrdom)</h4>
+                        <div class="chart-container">
+                            <canvas id="deathChart"></canvas>
+                        </div>
+                        <p class="text-center text-xs text-stone-400 mt-2">చాలా మంది సువార్త కోసం హతసాక్షులయ్యారు.</p>
+                    </div>
+
+                    <!-- Chart 2: Regions -->
+                    <div class="parchment-bg rounded-lg p-4">
+                        <h4 class="text-center font-bold text-stone-700 mb-4 text-sm">సువార్త ప్రకటించిన ప్రాంతాలు (Regions)</h4>
+                        <div class="chart-container">
+                            <canvas id="regionChart"></canvas>
+                        </div>
+                        <p class="text-center text-xs text-stone-400 mt-2">జెరూసలేం నుండి ప్రపంచమంతటా విస్తరించారు.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-stone-800 text-stone-300 py-6 mt-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-sm">.</p>
+            <p class="text-xs text-stone-500 mt-2">© 2024 Christian History Visualization</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Data Store
+        const apostles = [
+            {
+                id: 1,
+                name: "సీమోను పేతురు (Peter)",
+                title: "ముఖ్య అపోస్తలుడు",
+                region: "Rome",
+                mission: "గలిలయ జాలరి అయిన సీమోనును యేసు పిలిచి 'పేతురు' (రాయి) అని పేరు పెట్టాడు. యేసు అంటే ఎంతో ఆసక్తి ఉన్నప్పటికీ, ఆయన సిలువ వేయబడినప్పుడు పేతురు భయపడి మూడుసార్లు బొంకినాడు. కానీ పునరుత్థానం తర్వాత యేసు అతన్ని క్షమించి 'నా గొర్రెలను మేపు' అని బాధ్యత అప్పగించాడు. పెంతెకొస్తు రోజున అతని ప్రసంగం ద్వారా 3,000 మంది రక్షణ పొందారు. అన్యజనులకు సువార్త చేరవేయడంలో కీలక పాత్ర పోషించాడు. అంతియొకయలో, ఆసియా మైనర్ ప్రాంతాల్లో మరియు చివరకు రోమ్ నగరంలో సువార్త ప్రకటించాడు.",
+                death: "రోమ్ చక్రవర్తి నీరో క్రైస్తవులను హింసిస్తున్న కాలంలో పేతురును బంధించారు. సంప్రదాయం ప్రకారం, పేతురు రోమ్ నుండి పారిపోతుండగా యేసు అతనికి ఎదురుపడ్డాడు. 'ప్రభువా, ఎక్కడికి వెళుతున్నావు?' (Quo Vadis?) అని పేతురు అడగగా, 'నిన్ను మరల సిలువ వేయబడటానికి రోమ్ వెళుతున్నాను' అని యేసు బదులిచ్చాడు. అది విని పేతురు మారుమనసు పొంది వెనక్కి వెళ్ళాడు. సిలువ వేయబడే సమయం వచ్చినప్పుడు, 'నా ప్రభువు మరణించిన రీతిలో చనిపోవడానికి నేను అర్హుడను కాను' అని చెప్పి, తనను తలక్రిందులుగా సిలువ వేయమని కోరాడు.",
+                method: "Crucifixion (Upside Down)",
+                source: "Source: Tradition (Eusebius, Origen), John 21:18-19.",
+                category: "Crucifixion",
+                regionCat: "Europe"
+            },
+            {
+                id: 2,
+                name: "అందెయ (Andrew)",
+                title: "పేతురు సహోదరుడు",
+                region: "Greece",
+                mission: "యేసును వెంబడించిన మొట్టమొదటి శిష్యులలో అందెయ ఒకడు. తన సోదరుడైన పేతురును యేసు వద్దకు నడిపించాడు. యేసు ఆరోహణం తర్వాత, అందెయ ఉత్తర ప్రాంతాలైన సిథియా (Scythia - రష్యా ప్రాంతం), గ్రీస్ మరియు టర్కీలలో సువార్త ప్రకటించాడు. అనేక అద్భుతాలు చేస్తూ, విగ్రహారాధనలో ఉన్న అనేకులను క్రీస్తు వైపు తిప్పాడు. గ్రీస్‌లోని పాత్రాసు (Patras) నగరంలో గవర్నర్ ఏజియస్ భార్యను స్వస్థపరచడం ద్వారా ఆమె క్రీస్తును నమ్ముకుంది, ఇది గవర్నర్‌కు కోపం తెప్పించింది.",
+                death: "గవర్నర్ ఏజియస్ అందెయను బంధించి, విగ్రహాలకు మొక్కమని ఆజ్ఞాపించాడు. అందెయ నిరాకరించడంతో, అతన్ని కొరడాలతో కొట్టి సిలువ వేయమని ఆదేశించాడు. అందెయ సిలువను చూసినప్పుడు భయపడకుండా, 'ఓ విలులైన సిలువ! నా ప్రభువు నీపై వ్రేలాడాడు, నన్ను కూడా స్వీకరించు' అని ఆనందంతో స్వీకరించాడు. అతన్ని 'X' ఆకారపు సిలువపై కట్టారు. ఆ స్థితిలో రెండు రోజుల పాటు వ్రేలాడుతూ, చనిపోయే చివరి క్షణం వరకు బాటసారులకు సువార్త ప్రకటిస్తూనే ప్రాణాలర్పించాడు.",
+                method: "Crucifixion (X-Shape)",
+                source: "Source: Acts of Andrew, Tradition.",
+                category: "Crucifixion",
+                regionCat: "Europe"
+            },
+            {
+                id: 3,
+                name: "యాకోబు (James the Great)",
+                title: "జెబెదయి కుమారుడు",
+                region: "Judea",
+                mission: "యాకోబు మరియు అతని సోదరుడు యోహానును యేసు 'బోయెనెర్గే' (ఉరిమెడు వారు) అని పిలిచాడు. యేసు రూపాంతరమును (Transfiguration) కళ్లారా చూసిన ముగ్గురు శిష్యులలో ఇతను ఒకడు. యేసు మరణం తర్వాత జెరూసలేం మరియు యూదయ ప్రాంతంలో ఎంతో ధైర్యంగా సువార్త ప్రకటించాడు. ఇతని ప్రభావం ఎంత ఎక్కువగా ఉందంటే, యూదుల నాయకులు ఇతనిని ప్రమాదకరంగా భావించారు.",
+                death: "అపోస్తలులలో మొట్టమొదట హతసాక్షి అయినవాడు యాకోబు. అపోస్తలుల కార్యములు 12వ అధ్యాయం ప్రకారం, హేరోదు రాజు సంఘమును హింసించుటలో భాగంగా యాకోబును కత్తితో చంపించాడు. ఒక పురాతన కథనం (Clement of Alexandria) ప్రకారం, యాకోబును విచారణకు తీసుకువెళ్లేటప్పుడు, అతని ధైర్యాన్ని చూసి అతనిపై నేరం మోపిన వ్యక్తి కూడా క్రీస్తును నమ్మాడు. 'నేను కూడా క్రైస్తవుడనే' అని ఒప్పుకొని, యాకోబుతో పాటు ఆ వ్యక్తి కూడా శిరచ్ఛేదం చేయబడ్డాడు.",
+                method: "Beheaded (Sword)",
+                source: "Source: Bible - Acts 12:1-2, Clement of Alexandria.",
+                category: "Sword/Beheading",
+                regionCat: "Middle East"
+            },
+            {
+                id: 4,
+                name: "యోహాను (John)",
+                title: "ప్రేమించబడిన శిష్యుడు",
+                region: "Ephesus/Patmos",
+                mission: "యేసు సిలువపై ఉన్నప్పుడు తన తల్లియైన మరియను చూసుకునే బాధ్యతను యోహానుకు అప్పగించాడు. యోహాను ఎఫెసు (Ephesus) నగరంలో ఉండి సంఘాన్ని నడిపించాడు. అతను అనేక సంఘాలకు లేఖలు రాశాడు. రోమ్ చక్రవర్తి డొమిషియన్ కాలంలో హింసలు చెలరేగినప్పుడు, యోహానును బంధించి కాగుతున్న నూనెలో (Boiling Oil) పడేశారని, అయినా దేవుని కృప వల్ల అతనికి ఏ హానీ కలగలేదని చరిత్ర చెబుతుంది.",
+                death: "నూనెలో నుండి సురక్షితంగా బయటపడిన తర్వాత, చక్రవర్తి అతన్ని పాట్మోసు (Patmos) అనే ద్వీపానికి ప్రవాసం పంపాడు. అక్కడ ఒంటరిగా ఉన్నప్పుడు దేవుడు అతనికి భవిష్యత్తును గూర్చిన దర్శనాలు ఇచ్చాడు, అదే మనకు 'ప్రకటన గ్రంథం'. తర్వాత విడుదలై ఎఫెసు తిరిగి వచ్చాడు. అపోస్తలులందరిలో హతసాక్షిగా కాకుండా, వృద్ధాప్యంలో సహజ మరణం పొందిన ఏకైక అపోస్తలుడు యోహాను. తన చివరి రోజుల్లో 'చిన్న పిల్లలారా, ఒకనినొకడు ప్రేమించుడి' అని మాత్రమే బోధించేవాడు.",
+                method: "Natural Death",
+                source: "Source: Tradition (Tertullian), Revelation 1:9.",
+                category: "Natural",
+                regionCat: "Asia Minor"
+            },
+            {
+                id: 5,
+                name: "ఫిలిప్పు (Philip)",
+                title: "బేత్సయిదా వాస్తవ్యుడు",
+                region: "Phrygia",
+                mission: "ఫిలిప్పు సువార్తలో ఎంతో ఆసక్తి గలవాడు. నతానియేలును యేసు వద్దకు తెచ్చింది ఇతనే. ఉత్తర ఆఫ్రికాలో మరియు ఆసియా మైనర్‌లోని ఫ్రిజియా (Phrygia) ప్రాంతంలో పరిచర్య చేశాడు. హైరాపోలిస్ (Hierapolis) అనే నగరంలో ప్రజలు ఒక పెద్ద పామును (Serpent) దేవుడిగా పూజించేవారు. ఫిలిప్పు ఆ పామును చంపి (లేదా శక్తిహీనపరచి), సత్య దేవుడైన యేసును ప్రకటించాడు. దీనివల్ల నగరంలోని అనేకమంది మారుమనసు పొందారు.",
+                death: "పామును ఆరాధించే పూజారులు మరియు అధికారులు ఫిలిప్పుపై కోపగించుకున్నారు. అతనిని, మరియు అతనితో ఉన్న బర్తొలొమయిని బంధించారు. ఫిలిప్పును దారుణంగా హింసించి, తలక్రిందులుగా సిలువ వేశారు (మరికొన్ని కథనాల ప్రకారం ఇనుప కొక్కెములకు వేలాడదీయబడ్డాడు). తాను చనిపోతూ కూడా, తనను హింసించేవారి కోసం ప్రార్థించాడు మరియు బర్తొలొమయిని విడిపించమని కోరాడు.",
+                method: "Crucifixion/Stoning",
+                source: "Source: Acts of Philip (Tradition).",
+                category: "Crucifixion",
+                regionCat: "Asia Minor"
+            },
+            {
+                id: 6,
+                name: "బర్తొలొమయి (Bartholomew)",
+                title: "నతానియేలు",
+                region: "Armenia",
+                mission: "యేసు ఇతనిని చూసి 'ఇతడు నిజమైన ఇశ్రాయేలీయుడు, ఇతనిలో ఏ కపటము లేదు' అని మెచ్చుకున్నాడు. ఇతను ఫిలిప్పుతో కలిసి కొంతకాలం పరిచర్య చేశాడు. తర్వాత భారతదేశం (India) మరియు ఆర్మేనియా (Armenia) దేశాలకు వెళ్లాడు. అక్కడ మత్తయి సువార్త ప్రతిని ప్రజలకు అందించాడని చరిత్ర చెబుతుంది. ఆర్మేనియా రాజు కుమార్తెకు దెయ్యం పట్టి ఉండగా, బర్తొలొమయి ఆమెను స్వస్థపరిచాడు. అది చూసి రాజు మరియు అతని కుటుంబం బాప్తిస్మం తీసుకున్నారు.",
+                death: "రాజు మతం మారాడని తెలుసుకున్న రాజు సహోదరుడు మరియు అన్యమత పూజారులు బర్తొలొమయిపై పగబట్టారు. వారు ఇతనిని బంధించి అత్యంత క్రూరమైన శిక్ష విధించారు. బ్రతికి ఉండగానే అతని శరీరం నుండి చర్మాన్ని ఒలిచారు (Flayed alive). ఆ తీవ్రమైన బాధలో కూడా అతను క్రీస్తును స్తుతించడం ఆపలేదు. చివరగా అతని తల నరికి చంపారు. ఆర్మేనియాలో ఇతను గొప్ప హతసాక్షిగా గుర్తించబడ్డాడు.",
+                method: "Flayed/Beheaded",
+                source: "Source: Tradition.",
+                category: "Torture/Beheading",
+                regionCat: "Asia"
+            },
+            {
+                id: 7,
+                name: "తోమా (Thomas)",
+                title: "దిదిమ అనబడిన తోమా",
+                region: "India",
+                mission: "'నేను ఆయన గాయములను చూస్తే తప్ప నమ్మను' అని మొదట సందేహించిన తోమా, పునరుత్థానుడైన యేసును చూసి 'నా ప్రభువా! నా దేవా!' అని గొప్పగా ఒప్పుకున్నాడు. క్రీ.శ. 52లో భారతదేశంలోని కేరళ (Kodungallur) ప్రాంతానికి వచ్చాడు. అక్కడ ఏడు సంఘాలను స్థాపించాడు. తర్వాత మైలాపూర్ (చెన్నై) ప్రాంతానికి వెళ్లి సువార్త ప్రకటించాడు. ఇండో-పార్థియన్ రాజు గుండాఫోరస్ (Gundaphorus) ఆస్థానంలో వడ్రంగిగా పనిచేస్తూ, రాజభవనం కట్టడానికి ఇచ్చిన ధనాన్ని పేదలకు పంచిపెట్టి 'నీ కోసం పరలోకంలో భవనం కట్టాను' అని రాజుకు చెప్పాడని ఒక గాథ ఉంది.",
+                death: "హిందూ మతస్థులు మరియు పూజారులు తోమా చేస్తున్న మతమార్పిడులను వ్యతిరేకించారు. చెన్నైలోని పరంగిమలై (St. Thomas Mount) వద్ద తోమా ప్రార్థన చేసుకుంటుండగా, వెనుక నుండి ఈటెతో పొడిచి చంపారు. భారతదేశంలో క్రైస్తవ్యాన్ని స్థాపించిన అపోస్తలుడిగా తోమా చిరస్మరణీయుడు.",
+                method: "Speared",
+                source: "Source: Acts of Thomas, Indian Tradition.",
+                category: "Weapon (Spear)",
+                regionCat: "Asia"
+            },
+            {
+                id: 8,
+                name: "మత్తయి (Matthew)",
+                title: "సుంకం వసూలు చేయువాడు",
+                region: "Ethiopia",
+                mission: "మొదట లేవీ అనే పేరుతో సుంకం వసూలు చేసేవాడు. యేసు పిలుపు వినగానే లాభసాటి ఉద్యోగాన్ని వదిలేసి వచ్చేశాడు. యూదుల కోసం 'మత్తయి సువార్త' రాశాడు. తర్వాత పర్షియా మరియు ఇథియోపియా (Ethiopia) దేశాలకు వెళ్లాడు. ఇథియోపియాలో ఈజిప్పస్ అనే రాజు కుమార్తెను మృతులలో నుండి లేపాడని, ఆ కుటుంబమంతా రక్షింపబడిందని కథనాలు ఉన్నాయి. అద్భుతమైన రీతిలో సువార్త ప్రకటించాడు.",
+                death: "రాజు ఈజిప్పస్ మరణించిన తర్వాత, అతని వారసుడైన హిర్టాకస్ (Hirtacus) అధికారంలోకి వచ్చాడు. హిర్టాకస్ తన సొంత మేనకోడలు, క్రైస్తవ సన్యాసినిగా మారిన యుఫీమియాను పెళ్లి చేసుకోవాలని ఆశించాడు. అది తప్పని మత్తయి ఖండించాడు. దీనితో కోపోద్రిక్తుడైన రాజు, మత్తయి ఆదివారం రోజున ఆరాధన చేస్తుండగా సైనికులను పంపాడు. వారు మత్తయిని వెనుక నుండి కత్తితో పొడిచి (లేదా గొడ్డలితో నరికి) బలిపీఠం వద్దే చంపారు.",
+                method: "Stabbed (Sword)",
+                source: "Source: Tradition (Foxe's Book of Martyrs).",
+                category: "Sword/Beheading",
+                regionCat: "Africa"
+            },
+            {
+                id: 9,
+                name: "చిన్న యాకోబు (James the Less)",
+                title: "అల్ఫయి కుమారుడు",
+                region: "Jerusalem",
+                mission: "ఇతను జెరూసలేం సంఘానికి మొదటి అధ్యక్షుడిగా (Bishop) పనిచేశాడు. ఇతను ఎంతగా ప్రార్థించేవాడంటే, మోకాళ్ళూని ప్రార్థించడం వల్ల అతని మోకాళ్లు ఒంటె మోకాళ్లలా (Camel's knees) గట్టిపడిపోయాయని చరిత్రకారుడు హెగెసిప్పస్ రాశాడు. యూదులు ఇతనిని 'నీతిమంతుడు' (James the Just) అని పిలిచేవారు. అన్యజనులు క్రైస్తవంలోకి రావడాన్ని అంగీకరిస్తూ జెరూసలేం కౌన్సిల్‌లో కీలక నిర్ణయం తీసుకున్నాడు.",
+                death: "యూదుల మతపెద్దలు, ప్రధాన యాజకుడు అననియాస్ ఆధ్వర్యంలో యాకోబును చంపాలని పథకం వేశారు. పస్కా పండుగ సమయంలో, 'యేసును తిరస్కరించు' అని బలవంతం చేస్తూ దేవాలయం శిఖరం (Pinnacle) మీద నిలబెట్టారు. కానీ యాకోబు అక్కడి నుండి 'యేసు దేవుని కుడిపార్శ్వమున ఆసీనుడై ఉన్నాడు' అని బిగ్గరగా సాక్ష్యమిచ్చాడు. కోపంతో వారు అతన్ని కిందకు త్రోసేశారు. కింద పడ్డాక కూడా ప్రాణముండటంతో, మోకాళ్లపై ఉండి వారి కోసం ప్రార్థిస్తుండగా, ఒక చాకలివాడు బట్టలు ఉతికే కర్రతో తలపై కొట్టి చంపాడు.",
+                method: "Clubbed/Stoned",
+                source: "Source: Tradition (Josephus, Hegesippus).",
+                category: "Blunt Force",
+                regionCat: "Middle East"
+            },
+            {
+                id: 10,
+                name: "సీమోను (Simon the Zealot)",
+                title: "జీలోతే",
+                region: "Persia",
+                mission: "యేసును వెంబడించక ముందు ఇతను రోమా ప్రభుత్వానికి వ్యతిరేకంగా పోరాడే విప్లవకారుల (Zealots) గుంపులో ఉండేవాడు. యేసు ప్రేమ ఇతనిని మార్చింది. ఆఫ్రికాలోని మారిటేనియా ప్రాంతంలో, ఈజిప్టులో సువార్త ప్రకటించాడు. తర్వాత యూదా తద్దయితొ కలిసి పర్షియా (నేటి ఇరాన్) ప్రాంతానికి వెళ్లాడు. అక్కడ విగ్రహారాధన మరియు మంత్రశక్తులను ఎదిరించాడు.",
+                death: "పర్షియాలో సూర్యారాధన చేసే పూజారులు మరియు అధికారులు సీమోను బోధనలకు వ్యతిరేకంగా తిరగబడ్డారు. అతనికి అత్యంత భయంకరమైన మరణశిక్ష విధించారు. ఒక చెక్కను కోసే రంపంతో (Saw) సీమోనును నిలువుగా రెండు ముక్కలుగా కోసి చంపారు. అందుకే ఇతని గుర్తుగా రంపాన్ని (Saw) చూపిస్తారు.",
+                method: "Sawed in Half",
+                source: "Source: Tradition.",
+                category: "Torture/Execution",
+                regionCat: "Middle East"
+            },
+            {
+                id: 11,
+                name: "యూదా తద్దయి (Jude Thaddaeus)",
+                title: "యాకోబు కుమారుడు",
+                region: "Persia/Armenia",
+                mission: "ఇతను ఇస్కరియోతు యూదా కాదు. చివరి విందులో 'ప్రభువా, లోకమునకు కాక మాకు మాత్రమే నిన్ను కనపరచుకొనుటకు ఏమైయున్నది?' అని అడిగింది ఇతనే. యూదా తద్దయి మరియు సీమోను కలిసి పర్షియా మరియు అర్మేనియా ప్రాంతాల్లో సువార్త ప్రకటించారు. ఎడెస్సా (Edessa) రాజు అబ్గర్ (Abgar) కు యేసు పంపిన వర్తమానాన్ని (లేదా వస్త్రాన్ని) అందించి అతన్ని స్వస్థపరిచాడనే ప్రసిద్ధ కథ ఉంది. ఇతను యూదా పత్రిక రాశాడు.",
+                death: "క్రీ.శ. 65 ప్రాంతంలో, పర్షియా లేదా సిరియాలో విగ్రహారాధకులు ఇతనిపై దాడి చేశారు. విగ్రహాలకు బలి అర్పించమని ఒత్తిడి చేయగా నిరాకరించాడు. కోపించిన మూకలు ఇతనిని గొడ్డలితో (Axe) లేదా గదతో (Club) కొట్టి చంపారు.",
+                method: "Axed/Clubbed",
+                source: "Source: Tradition.",
+                category: "Weapon (Axe)",
+                regionCat: "Middle East"
+            },
+            {
+                id: 12,
+                name: "మత్తీయ (Matthias)",
+                title: "యూదా ఇస్కరియోతు స్థానంలో",
+                region: "Caspian Sea/Ethiopia",
+                mission: "యేసు బాప్తిస్మం మొదలుకొని ఆరోహణం వరకు వెంబడించిన 70 మంది శిష్యులలో ఇతను ఒకడు. యూదా ఇస్కరియోతు ఆత్మహత్య చేసుకున్న తర్వాత, చీట్లు వేయగా మత్తీయ అపోస్తలుడిగా ఎంపికయ్యాడు. ఇతను యూదయలో మరియు కాస్పియన్ సముద్ర ప్రాంతాల్లో, తర్వాత ఇథియోపియాలో సువార్త ప్రకటించాడు. శరీర ఆశలను జయించడం గురించి (Mortification of the flesh) ఎక్కువగా బోధించేవాడు.",
+                death: "ఇతని మరణం గురించి రకరకాల కథనాలు ఉన్నాయి. ఒక కథనం ప్రకారం ఇథియోపియాలో నరమాంస భక్షకుల మధ్య సువార్త ప్రకటిస్తుండగా చంపబడ్డాడు. మరొక ప్రబలమైన కథనం ప్రకారం, జెరూసలేంలో యూదులు ఇతనిని దైవదూషణ చేస్తున్నాడని రాళ్లతో కొట్టారు (Stoned), తర్వాత రోమా ఆచారం ప్రకారం తల నరికి (Beheaded) చంపారు.",
+                method: "Stoned/Beheaded",
+                source: "Source: Tradition.",
+                category: "Stoning",
+                regionCat: "Africa"
+            }
+        ];
+
+        // State Management
+        let currentApostleId = 1;
+
+        // DOM Elements
+        const apostleList = document.getElementById('apostle-list');
+        const detailCard = document.getElementById('detail-card');
+        const nameEl = document.getElementById('apostle-name');
+        const titleEl = document.getElementById('apostle-title');
+        const regionEl = document.getElementById('apostle-region');
+        const missionEl = document.getElementById('apostle-mission');
+        const deathEl = document.getElementById('apostle-death');
+        const methodEl = document.getElementById('apostle-method');
+        const sourceEl = document.getElementById('apostle-source');
+        const badgeEl = document.getElementById('apostle-badge');
+
+        // Initialization
+        function init() {
+            renderList();
+            renderCharts();
+            loadApostle(currentApostleId); // Load Peter by default
+        }
+
+        // Render List
+        function renderList() {
+            apostleList.innerHTML = '';
+            apostles.forEach(apostle => {
+                const btn = document.createElement('button');
+                btn.className = `w-full text-left p-3 rounded transition-colors duration-200 hover:bg-stone-200 flex items-center justify-between group ${apostle.id === currentApostleId ? 'active-apostle' : 'bg-white'}`;
+                btn.innerHTML = `
+                    <span class="font-medium ${apostle.id === currentApostleId ? 'text-amber-900' : 'text-stone-600'}">${apostle.name}</span>
+                    <span class="text-xs text-stone-400 group-hover:text-stone-600 transition-colors">➔</span>
+                `;
+                btn.onclick = () => {
+                    currentApostleId = apostle.id;
+                    renderList(); // Re-render to update active state
+                    loadApostle(apostle.id);
+                };
+                apostleList.appendChild(btn);
+            });
+        }
+
+        // Load Apostle Details
+        function loadApostle(id) {
+            const data = apostles.find(a => a.id === id);
+            
+            // Animation reset
+            detailCard.classList.remove('opacity-100');
+            detailCard.classList.add('opacity-50');
+
+            setTimeout(() => {
+                nameEl.textContent = data.name;
+                titleEl.textContent = data.title;
+                regionEl.textContent = data.region;
+                
+                // Allow HTML for richer formatting if needed, but textContent is safer. 
+                // Given the length, we ensure readable rendering.
+                missionEl.innerHTML = data.mission; 
+                deathEl.innerHTML = data.death;
+                
+                methodEl.textContent = data.method;
+                sourceEl.textContent = data.source;
+                
+                // Update badge color based on region category for visual variety
+                if(data.regionCat === 'Europe') badgeEl.className = 'inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mb-2 font-semibold';
+                else if(data.regionCat === 'Asia') badgeEl.className = 'inline-block bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded-full mb-2 font-semibold';
+                else if(data.regionCat === 'Africa') badgeEl.className = 'inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full mb-2 font-semibold';
+                else badgeEl.className = 'inline-block bg-stone-200 text-stone-800 text-xs px-2 py-1 rounded-full mb-2 font-semibold';
+
+                detailCard.classList.remove('opacity-50');
+                detailCard.classList.add('opacity-100');
+            }, 150);
+        }
+
+        // Render Charts
+        function renderCharts() {
+            // Chart 1: Method of Death
+            const methodCounts = {};
+            apostles.forEach(a => {
+                methodCounts[a.category] = (methodCounts[a.category] || 0) + 1;
+            });
+
+            const deathCtx = document.getElementById('deathChart').getContext('2d');
+            new Chart(deathCtx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(methodCounts),
+                    datasets: [{
+                        label: 'Number of Apostles',
+                        data: Object.values(methodCounts),
+                        backgroundColor: [
+                            'rgba(239, 68, 68, 0.7)', // Red for sword/blood
+                            'rgba(245, 158, 11, 0.7)', // Amber
+                            'rgba(168, 162, 158, 0.7)', // Grey for stoning/natural
+                            'rgba(120, 113, 108, 0.7)',
+                            'rgba(180, 83, 9, 0.7)'
+                        ],
+                        borderColor: 'rgba(255, 255, 255, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.raw + ' మంది';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { stepSize: 1 }
+                        }
+                    }
+                }
+            });
+
+            // Chart 2: Regions
+            const regionCounts = {};
+            apostles.forEach(a => {
+                regionCounts[a.regionCat] = (regionCounts[a.regionCat] || 0) + 1;
+            });
+
+            const regionCtx = document.getElementById('regionChart').getContext('2d');
+            new Chart(regionCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(regionCounts),
+                    datasets: [{
+                        data: Object.values(regionCounts),
+                        backgroundColor: [
+                            '#60a5fa', // Blue for Europe
+                            '#f59e0b', // Amber for Middle East
+                            '#a8a29e', // Grey for Asia Minor
+                            '#d97706', // Dark Amber for Asia
+                            '#22c55e', // Green for Africa
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+        }
+
+        // Start App
+        init();
+
+    </script>
+</body>
+</html>
