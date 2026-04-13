@@ -1,0 +1,262 @@
+
+<!DOCTYPE html>
+<html lang="te" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ఆదికాండము (Book of Genesis)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Telugu:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        telugu: ['"Noto Serif Telugu"', 'serif'],
+                    },
+                    colors: {
+                        primary: '#4338ca', // Indigo 700
+                        primaryDark: '#818cf8', // Indigo 400
+                        accent: '#d97706', // Amber 600
+                        accentDark: '#fbbf24', // Amber 400
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Poppins', '"Noto Serif Telugu"', sans-serif; }
+        h1, h2, h3, h4 { font-family: '"Noto Serif Telugu"', serif; }
+        /* Smooth transition for theme toggle */
+        body, .bg-white, .bg-slate-50, .bg-slate-800, .bg-slate-900, .text-slate-800, .text-slate-200 {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 antialiased leading-relaxed">
+
+    <!-- Theme Toggle Button -->
+    <div class="fixed top-4 right-4 z-50">
+        <button id="themeToggle" class="p-3 bg-white dark:bg-slate-800 text-slate-800 dark:text-amber-400 rounded-full shadow-lg border border-slate-200 dark:border-slate-700 hover:scale-105 transition-transform">
+            <!-- Sun Icon (shows in dark mode) -->
+            <svg id="sunIcon" class="w-6 h-6 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+            <!-- Moon Icon (shows in light mode) -->
+            <svg id="moonIcon" class="w-6 h-6 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+        </button>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="bg-indigo-900 dark:bg-black text-white py-24 px-6 relative overflow-hidden border-b-4 border-accent">
+        <div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] mix-blend-overlay"></div>
+        <div class="max-w-4xl mx-auto relative z-10 text-center">
+            <span class="text-accentDark font-bold tracking-widest uppercase text-sm mb-4 block">The Book of Genesis</span>
+            <h1 class="text-5xl md:text-6xl font-bold mb-6 drop-shadow-lg">ఆదికాండము</h1>
+            <p class="text-xl md:text-2xl font-light text-indigo-100 max-w-3xl mx-auto leading-relaxed">
+                సృష్టి, మానవాళి ఆరంభం, మరియు దేవుని విమోచన ప్రణాళికకు మూల వాక్యం.
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 py-12 md:py-20">
+
+        <!-- Introduction -->
+        <section class="mb-16 text-center max-w-4xl mx-auto">
+            <p class="text-lg md:text-xl text-slate-700 dark:text-slate-300 leading-loose">
+                ఆదికాండము బైబిల్ లోని మొట్టమొదటి పుస్తకం. హెబ్రీ భాషలో దీనిని <strong>"బెరెషిత్" (Bereshith)</strong> అంటారు, అనగా "ఆదియందు". గ్రీకులో "Genesis" అనగా మూలం. బైబిల్లోని ప్రతి ముఖ్యమైన సిద్ధాంతానికి—సృష్టి, పాపం, వివాహం, కుటుంబం, మరియు దేవుని రక్షణ ప్రణాళికకు—ఆదికాండమే పునాది. ఇది లేకుండా బైబిల్ ను అర్థం చేసుకోవడం అసాధ్యం.
+            </p>
+        </section>
+
+        <!-- Key Details Grid -->
+        <section class="mb-20">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-primary dark:text-primaryDark inline-block border-b-2 border-accent pb-2">పుస్తక ముఖ్య వివరాలు</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-md transition">
+                    <h3 class="text-xl font-bold text-accent dark:text-accentDark mb-3 flex items-center">
+                        <span class="mr-2 text-2xl">✍️</span> రచయిత
+                    </h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-base leading-relaxed"><strong>మోషే (Moses).</strong> పరిశుద్ధాత్మ ప్రేరణ చేత మోషే ఈ పుస్తకాన్ని రాశాడని యూదుల మరియు క్రైస్తవుల బలమైన నమ్మకం. క్రీస్తు కూడా దీనిని ధృవీకరించారు.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-md transition">
+                    <h3 class="text-xl font-bold text-accent dark:text-accentDark mb-3 flex items-center">
+                        <span class="mr-2 text-2xl">⏳</span> కాలము
+                    </h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-base leading-relaxed">సుమారుగా క్రీ.పూ. <strong>1440 - 1400</strong> మధ్య కాలంలో. అయితే ఇందులోని చరిత్ర సృష్టి ఆరంభం నుండి యోసేపు మరణం వరకు (క్రీ.పూ. 1805) విస్తరించి ఉంది.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-md transition">
+                    <h3 class="text-xl font-bold text-accent dark:text-accentDark mb-3 flex items-center">
+                        <span class="mr-2 text-2xl">🌍</span> ప్రదేశం
+                    </h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-base leading-relaxed">సినాయి అరణ్యంలో మోషే దీనిని రాసి ఉండవచ్చు. ఇందులోని సంఘటనలు <strong>ఎదేను తోట, మెసొపొటేమియా, కనాను, మరియు ఐగుప్తు</strong> ప్రాంతాలలో జరిగాయి.</p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-md transition">
+                    <h3 class="text-xl font-bold text-accent dark:text-accentDark mb-3 flex items-center">
+                        <span class="mr-2 text-2xl">📖</span> పుస్తక స్థానం
+                    </h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-base leading-relaxed">బైబిల్ గ్రంథంలో ఇది <strong>మొదటి పుస్తకం.</strong> యూదుల ధర్మశాస్త్రమైన 'తోరా' (పంచకాండాలు - మొదటి ఐదు పుస్తకాలు) లో ఇది ఆరంభ గ్రంథం.</p>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 hover:shadow-md transition">
+                    <h3 class="text-xl font-bold text-accent dark:text-accentDark mb-3 flex items-center">
+                        <span class="mr-2 text-2xl">📑</span> అధ్యాయాలు
+                    </h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-base leading-relaxed">మొత్తం <strong>50 అధ్యాయాలు</strong>, 1533 వచనాలు ఉన్నాయి.</p>
+                </div>
+
+                <!-- Card 6 Highlight -->
+                <div class="bg-indigo-50 dark:bg-indigo-900/40 rounded-2xl p-6 shadow-sm border border-indigo-100 dark:border-indigo-800 hover:shadow-md transition">
+                    <h3 class="text-xl font-bold text-primary dark:text-primaryDark mb-3 flex items-center">
+                        <span class="mr-2 text-2xl">🎯</span> ముఖ్య ఇతివృత్తం
+                    </h3>
+                    <p class="text-slate-700 dark:text-slate-300 text-base leading-relaxed">మానవుని పతనం, మరియు పాపియైన మానవుడిని రక్షించడానికి దేవుడు వాగ్దానం చేసిన విమోచన ప్రణాళిక ఆరంభం.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detailed Outline -->
+        <section class="mb-20">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-primary dark:text-primaryDark inline-block border-b-2 border-accent pb-2">లోతైన విభజన</h2>
+            </div>
+            
+            <div class="space-y-12">
+                
+                <!-- Part 1 -->
+                <div class="bg-white dark:bg-slate-800 rounded-3xl shadow-md overflow-hidden border border-slate-200 dark:border-slate-700">
+                    <div class="bg-slate-100 dark:bg-slate-900 px-8 py-6 border-b border-slate-200 dark:border-slate-700">
+                        <h3 class="text-2xl font-bold text-primary dark:text-primaryDark">1. ప్రాచీన చరిత్ర (అధ్యాయాలు 1 - 11)</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 mt-2 uppercase tracking-wide font-semibold">మానవాళి ఆరంభం & 4 ముఖ్య సంఘటనలు</p>
+                    </div>
+                    <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+                        <div>
+                            <h4 class="text-lg font-bold text-slate-800 dark:text-slate-100 mb-2 border-l-4 border-accent pl-3">సృష్టి (1-2 అధ్యాయాలు)</h4>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">శూన్యం నుండి దేవుడు సమస్త విశ్వాన్ని వాక్కు ద్వారా ఆరు రోజులలో సృష్టించాడు. మానవుడిని (ఆదాము, హవ్వ) తన స్వరూపంలో సృష్టించి, ఆధిపత్యాన్ని అప్పగించాడు.</p>
+                            
+                            <h4 class="text-lg font-bold text-slate-800 dark:text-slate-100 mb-2 border-l-4 border-accent pl-3">పతనం (3-5 అధ్యాయాలు)</h4>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">సాతాను శోధించగా వారు దేవుని ఆజ్ఞ మీరి పాపం చేశారు. ఫలితంగా మరణం, శాపం లోకంలోకి వచ్చాయి. కయీను హేబెలును చంపడం పాపం యొక్క తీవ్రతను చూపిస్తుంది.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-bold text-slate-800 dark:text-slate-100 mb-2 border-l-4 border-accent pl-3">జలప్రళయం (6-9 అధ్యాయాలు)</h4>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">మానవుల పాపం పెరగడంతో, దేవుడు జలప్రళయం ద్వారా లోకాన్ని నాశనం చేశాడు. దేవుని కృప పొందిన నోవహును, కుటుంబాన్ని ఓడ ద్వారా రక్షించి కొత్త ఆరంభాన్ని ఇచ్చాడు.</p>
+                            
+                            <h4 class="text-lg font-bold text-slate-800 dark:text-slate-100 mb-2 border-l-4 border-accent pl-3">బాబెలు గోపురం (10-11 అధ్యాయాలు)</h4>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">గర్వంతో మనుష్యులు ఏకమై ఆకాశాన్ని అంటే గోపురం కట్టాలని చూశారు. దేవుడు వారి భాషలను తారుమారు చేసి, వారిని భూమి నలుదిశలా చెదరగొట్టాడు.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Part 2 -->
+                <div class="bg-white dark:bg-slate-800 rounded-3xl shadow-md overflow-hidden border border-slate-200 dark:border-slate-700">
+                    <div class="bg-slate-100 dark:bg-slate-900 px-8 py-6 border-b border-slate-200 dark:border-slate-700">
+                        <h3 class="text-2xl font-bold text-primary dark:text-primaryDark">2. పితరుల చరిత్ర (అధ్యాయాలు 12 - 50)</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 mt-2 uppercase tracking-wide font-semibold">ఇశ్రాయేలు జనాంగం ఆరంభం & 4 ముఖ్య వ్యక్తులు</p>
+                    </div>
+                    <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+                        <div>
+                            <h4 class="text-lg font-bold text-slate-800 dark:text-slate-100 mb-2 border-l-4 border-primary pl-3">అబ్రాహాము (12-25 అధ్యాయాలు)</h4>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">విగ్రహారాధనలో ఉన్న అబ్రామును పిలిచి, గొప్ప జనంగా చేస్తానని వాగ్దానం చేశాడు. దేవుని మాట నమ్మి కదిలిన అబ్రాహాము "విశ్వాసులకు తండ్రి" అయ్యాడు.</p>
+                            
+                            <h4 class="text-lg font-bold text-slate-800 dark:text-slate-100 mb-2 border-l-4 border-primary pl-3">ఇస్సాకు (21-35 అధ్యాయాలు)</h4>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">వృద్ధాప్యంలో అబ్రాహాము, శారాలకు పుట్టిన వాగ్దాన కుమారుడు. అతను శాంతియుత జీవితం గడిపాడు. రిబ్కాతో వివాహం, యాకోబు ఏశావుల జననం ఇక్కడ చూస్తాం.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-bold text-slate-800 dark:text-slate-100 mb-2 border-l-4 border-primary pl-3">యాకోబు (25-36 అధ్యాయాలు)</h4>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">మోసగాడైన యాకోబు దేవునితో పోరాడి మార్చబడ్డాడు. అతని పేరు "ఇశ్రాయేలు" గా మార్చబడింది. అతని 12 మంది కుమారులే ఇశ్రాయేలు 12 గోత్రాలకు మూల పురుషులు.</p>
+                            
+                            <h4 class="text-lg font-bold text-slate-800 dark:text-slate-100 mb-2 border-l-4 border-primary pl-3">యోసేపు (37-50 అధ్యాయాలు)</h4>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">అన్నలచేత ద్వేషించబడి ఐగుప్తుకు అమ్మబడిన యోసేపు, దేవుని తోడు వల్ల ప్రధానమంత్రి అవుతాడు. కరువు కాలంలో తన కుటుంబాన్ని పోషించి కాపాడతాడు.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Christology Section (Special Dark Background in both modes) -->
+        <section class="mb-16">
+            <div class="bg-slate-900 rounded-3xl p-8 md:p-12 text-slate-200 shadow-xl relative overflow-hidden border border-slate-700">
+                <div class="absolute top-0 right-0 opacity-5 transform translate-x-1/4 -translate-y-1/4 text-white">
+                    <svg class="w-64 h-64" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 22h20L12 2zm0 4.5l6.5 13h-13L12 6.5z"/></svg>
+                </div>
+                
+                <h2 class="text-3xl font-bold text-accentDark mb-6 relative z-10 border-b border-slate-700 pb-4 inline-block">యేసు క్రీస్తు ఛాయ (Christ in Genesis)</h2>
+                <p class="text-slate-400 mb-10 max-w-3xl leading-relaxed relative z-10">ఆదికాండములో క్రీస్తు యొక్క రాకడ, ఆయన సిలువ యాగం గురించి అనేక ప్రవచనాలు, ఛాయలు దాగి ఉన్నాయి:</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+                    <div class="bg-slate-800/80 p-6 rounded-2xl border border-slate-700 hover:border-accentDark transition duration-300">
+                        <h4 class="text-xl font-bold text-white mb-2">స్త్రీ సంతానం (Protoevangelium)</h4>
+                        <p class="text-slate-400 text-sm">ఆది 3:15 లో దేవుడు మొదటి సువార్తను ప్రకటించాడు. సాతాను తల చితకగొట్టే "స్త్రీ సంతానమే" కన్య మరియ గర్భాన జన్మించిన యేసుక్రీస్తు.</p>
+                    </div>
+
+                    <div class="bg-slate-800/80 p-6 rounded-2xl border border-slate-700 hover:border-accentDark transition duration-300">
+                        <h4 class="text-xl font-bold text-white mb-2">నోవహు ఓడ (The Ark)</h4>
+                        <p class="text-slate-400 text-sm">దేవుని ఉగ్రత నుండి రక్షించడానికి ఒకే ఒక్క మార్గం ఓడ. నేడు దేవుని తీర్పు నుండి రక్షించబడటానికి ఏకైక మార్గం క్రీస్తే. ఓడకు ఉన్న ఏకైక ద్వారం క్రీస్తే.</p>
+                    </div>
+
+                    <div class="bg-slate-800/80 p-6 rounded-2xl border border-slate-700 hover:border-accentDark transition duration-300">
+                        <h4 class="text-xl font-bold text-white mb-2">మెల్కీసెదెకు (Melchizedek)</h4>
+                        <p class="text-slate-400 text-sm">ఆది 14లో అబ్రాహామును దీవించిన షాలేము రాజు. వంశావళి లేని ఇతను, నిరంతర యాజకత్వం కలిగిన యేసుక్రీస్తుకు అద్భుతమైన ఛాయ.</p>
+                    </div>
+
+                    <div class="bg-slate-800/80 p-6 rounded-2xl border border-slate-700 hover:border-accentDark transition duration-300">
+                        <h4 class="text-xl font-bold text-white mb-2">ఇస్సాకు బలి (Sacrifice)</h4>
+                        <p class="text-slate-400 text-sm">అబ్రాహాము తన ఏకైక కుమారుడైన ఇస్సాకును బలి ఇవ్వడానికి సిద్ధపడటం, పరలోక తండ్రి తన కుమారుడైన యేసును కల్వరిలో అప్పగించడానికి సజీవ సాదృశ్యం.</p>
+                    </div>
+
+                    <div class="bg-slate-800/80 p-6 rounded-2xl border border-slate-700 md:col-span-2 hover:border-accentDark transition duration-300">
+                        <h4 class="text-xl font-bold text-white mb-2">యోసేపు (The Perfect Type)</h4>
+                        <p class="text-slate-400 text-sm">తండ్రికి ప్రియుడు, సహోదరులచేత ద్వేషించబడ్డాడు, వెండి నాణేలకు అమ్మబడ్డాడు, ఖైదీ అయ్యాడు, చివరకు తను ద్వేషించిన వారికే మరియు సర్వ లోకానికి ప్రాణదాత (రక్షకుడు) అయ్యాడు.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-slate-950 text-slate-500 py-8 border-t border-slate-200 dark:border-slate-800 text-center">
+        <p class="max-w-2xl mx-auto px-4 text-sm font-medium">
+            "ఆదికాండము కేవలం ఒక చరిత్ర కాదు, అది ఒక వాగ్దానం. మనిషి పడిపోయిన మరుక్షణమే, దేవుడు రక్షణ ప్రణాళికను ప్రారంభించిన అద్భుత ప్రేమకు సాక్ష్యం."
+        </p>
+    </footer>
+
+    <!-- Theme Toggle Logic -->
+    <script>
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const htmlElement = document.documentElement;
+
+        // Check Local Storage or System Preference
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        // Toggle Event
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        });
+    </script>
+</body>
+</html>
+
+
